@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 let formEntries = [];
 
 // Routes
-app.post('/api/submit', (req, res) => {
+app.post('/submit', (req, res) => {
   try {
     const { name, email, age, message } = req.body;
     
@@ -39,22 +39,22 @@ app.post('/api/submit', (req, res) => {
     
     res.status(201).json({ message: 'Form submitted successfully', data: newEntry });
   } catch (error) {
-    console.error('Error in POST /api/submit:', error);
+    console.error('Error in POST /submit:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-app.get('/api/data', (req, res) => {
+app.get('/data', (req, res) => {
   try {
     res.json(formEntries);
   } catch (error) {
-    console.error('Error in GET /api/data:', error);
+    console.error('Error in GET /data:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Get single entry
-app.get('/api/data/:id', (req, res) => {
+app.get('/data/:id', (req, res) => {
   try {
     const entry = formEntries.find(entry => entry.id === req.params.id);
     if (!entry) {
@@ -68,7 +68,7 @@ app.get('/api/data/:id', (req, res) => {
 });
 
 // Update entry
-app.put('/api/data/:id', (req, res) => {
+app.put('/data/:id', (req, res) => {
   try {
     const { name, email, age, message } = req.body;
     const id = req.params.id;
@@ -94,13 +94,13 @@ app.put('/api/data/:id', (req, res) => {
 
     res.json({ message: 'Entry updated successfully', data: formEntries[index] });
   } catch (error) {
-    console.error('Error in PUT /api/data/:id:', error);
+    console.error('Error in PUT /data/:id:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Delete entry
-app.delete('/api/data/:id', (req, res) => {
+app.delete('/data/:id', (req, res) => {
   try {
     const id = req.params.id;
     const index = formEntries.findIndex(entry => entry.id === id);
@@ -114,7 +114,7 @@ app.delete('/api/data/:id', (req, res) => {
     
     res.json({ message: 'Entry deleted successfully' });
   } catch (error) {
-    console.error('Error in DELETE /api/data/:id:', error);
+    console.error('Error in DELETE /data/:id:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
